@@ -1,6 +1,6 @@
 import requests
 
-url = "http://localhost:5000/post"
+url = "http://localhost"
 myjson = input()
 
 req = requests.post(url, json=myjson)

@@ -3,7 +3,7 @@ import requests
 url = "http://localhost"  # nginx url
 
 while True:
-    number = input()
+    number = input("Input Number: ")
 
     # checking if number consists of digits and doesn't begin with 0 (if it's not 0 itself)
     if number.isdigit() and (len(number) == 1 or len(number) > 1 and number[0] != '0'):

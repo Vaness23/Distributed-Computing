@@ -14,6 +14,6 @@ while True:
 
         # printing obtained data
         print(req.status_code)
-        print(req.json())
+        print(req.text)
     else:
         print("Error: Input a valid number")

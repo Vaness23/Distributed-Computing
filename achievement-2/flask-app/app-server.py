@@ -1,10 +1,25 @@
+#!/usr/bin/env python3
+
 from flask import Flask
 from flask import request
+import os
 
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer
 import json
 
 import logging
+
+
+DATABASE_ADDRESS = os.getenv("DATABASE_ADDRESS", "localhost")
+DATABASE_PORT = os.getenv("DATABASE_PORT", "5432")
+DATABASE_USER = os.getenv("DATABASE_USER", "postgres")
+DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD", "1")
+DATABASE_NAME = os.getenv("DATABASE_NAME", "data")
+
+HOST = os.getenv("HOST", "0.0.0.0")
+PORT = os.getenv("PORT", 80)
+
+# TODO: output logs to stdout and stderr
 logging.basicConfig(handlers=[logging.FileHandler
                             (filename="app-server.log", 
                             encoding='utf-8', mode='a+')],
@@ -25,8 +40,12 @@ def post():
     data = json.loads(content)
     number = data["number"]
 
+    # Concatinating engine_string from DATABASE_VAR
+    engine_connection_string = "postgres://" + DATABASE_USER + ":" + DATABASE_PASSWORD + "@" + DATABASE_ADDRESS + ":" + DATABASE_PORT + "/" + DATABASE_NAME
+
     # Connecting to PostgreSQL DB "data"
-    engine = create_engine('postgres://postgres:1@localhost:5432/data')
+    # engine = create_engine('postgres://postgres:1@localhost:5432/data')
+    engine = create_engine(engine_connection_string)
     meta = MetaData()
 
     # Table "numbers" description
@@ -74,3 +93,7 @@ def post():
     logging.info(content)    
 
     return content
+
+
+if __name__ == '__main__':
+    app.run(host=HOST, port=PORT)

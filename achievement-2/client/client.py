@@ -1,6 +1,6 @@
 import requests
 
-url = "http://localhost"  # nginx url
+url = "http://localhost:5555/post"  # nginx url
 
 while True:
     number = input("Input Number: ")
@@ -13,7 +13,7 @@ while True:
         req = requests.post(url, json=post_json)
 
         # printing obtained data
-        print(req.status_code)
+        # print(req.status_code)
         print(req.text)
     else:
         print("Error: Input a valid number")

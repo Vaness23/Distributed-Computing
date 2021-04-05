@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: achievement2-deployment
+  labels:
+    app: achievement2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: achievement2
+  template:
+    metadata:
+      labels:
+        app: achievement2
+    spec:
+      containers:
+      - name: achievement2
+        image: achievement2/hse
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 5000
+        env:
+          - name: DATABASE_ADDRESS
+            value: postgres
+          - name: DATABASE_PORT
+            value: "5432"
+          - name: DATABASE_USER
+            value: postgres
+          - name: DATABASE_PASSWORD
+            value: "1"
+          - name: DATABASE_NAME
+            value: data
+          - name: HOST
+            value: "0.0.0.0"
+          - name: PORT
+            value: "5000"
